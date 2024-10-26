@@ -41,15 +41,13 @@ new_intnadtype_instance(PyObject *bit_pattern, PyObject *precision)
 }
 
 static PyType_Slot IntNADType_Slots[] = {
-    // {NPY_DT_ensure_canonical, &ensure_canonical},
-    // {NPY_DT_common_instance, &common_instance},
-    // {NPY_DT_common_dtype, &common_dtype},
-    // {NPY_DT_discover_descr_from_pyobject, &mpf_discover_descriptor_from_pyobject},
-    // {NPY_DT_setitem, &mpf_setitem},
-    // {NPY_DT_getitem, &mpf_getitem},
-    {0, NULL}
-};
-
+        // {NPY_DT_ensure_canonical, &ensure_canonical},
+        // {NPY_DT_common_instance, &common_instance},
+        // {NPY_DT_common_dtype, &common_dtype},
+        // {NPY_DT_discover_descr_from_pyobject, &mpf_discover_descriptor_from_pyobject},
+        // {NPY_DT_setitem, &mpf_setitem},
+        // {NPY_DT_getitem, &mpf_getitem},
+        {0, NULL}};
 
 static PyObject *
 intnadtype_new(PyTypeObject *NPY_UNUSED(cls), PyObject *args, PyObject *kwds)
@@ -59,14 +57,13 @@ intnadtype_new(PyTypeObject *NPY_UNUSED(cls), PyObject *args, PyObject *kwds)
     PyObject *precision;
     PyObject *bit_pattern;
 
-    if (!PyArg_ParseTupleAndKeywords(args, kwds, "|$pO&:IntNADType",
-                                     kwargs_strs, &precision, &bit_pattern)) {
+    if (!PyArg_ParseTupleAndKeywords(args, kwds, "|$pO&:IntNADType", kwargs_strs, &precision,
+                                     &bit_pattern)) {
         return NULL;
     }
 
     return new_intnadtype_instance(precision, bit_pattern);
 }
-
 
 static void
 intnadtype_dealloc(IntNADTypeObject *self)
@@ -76,7 +73,6 @@ intnadtype_dealloc(IntNADTypeObject *self)
     PyArrayDescr_Type.tp_dealloc((PyObject *)self);
 }
 
-
 static PyObject *
 intnadtype_repr(IntNADTypeObject *self)
 {
@@ -84,7 +80,6 @@ intnadtype_repr(IntNADTypeObject *self)
 
     return ret;
 }
-
 
 /*
  * This is the basic things that you need to create a Python Type/Class in C.
@@ -94,8 +89,7 @@ intnadtype_repr(IntNADTypeObject *self)
  */
 PyArray_DTypeMeta IntNADType = {
         {{
-                PyVarObject_HEAD_INIT(NULL, 0).tp_name =
-                        "missingvaluedtypes.IntNADType",
+                PyVarObject_HEAD_INIT(NULL, 0).tp_name = "missingvaluedtypes.IntNADType",
                 .tp_basicsize = sizeof(IntNADTypeObject),
                 .tp_new = intnadtype_new,
                 .tp_dealloc = (destructor)intnadtype_dealloc,
@@ -104,7 +98,6 @@ PyArray_DTypeMeta IntNADType = {
         }},
         /* rest, filled in during DTypeMeta initialization */
 };
-
 
 int
 init_intna_dtype(void)
@@ -125,13 +118,12 @@ init_intna_dtype(void)
         return -1;
     }
 
-    if (PyArrayInitDTypeMeta_FromSpec((PyArray_DTypeMeta *)&IntNADType,
-                                      &IntNADType_DTypeSpec) < 0) {
+    if (PyArrayInitDTypeMeta_FromSpec((PyArray_DTypeMeta *)&IntNADType, &IntNADType_DTypeSpec) <
+        0) {
         return -1;
     }
 
-    PyArray_Descr *singleton =
-            PyArray_GetDefaultDescr((PyArray_DTypeMeta *)&IntNADType);
+    PyArray_Descr *singleton = PyArray_GetDefaultDescr((PyArray_DTypeMeta *)&IntNADType);
 
     if (singleton == NULL) {
         return -1;
