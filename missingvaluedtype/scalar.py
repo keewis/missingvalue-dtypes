@@ -1,0 +1,2 @@
+class IntNAScalar(int):
+    pass
