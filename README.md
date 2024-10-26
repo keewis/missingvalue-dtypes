@@ -1,7 +1,7 @@
 # missing value dtypes
 
-[!WARNING]
-This is very experimental and not even close to being ready for use.
+> [!WARNING]
+> This is very experimental and not even close to being ready for use.
 
 Bit pattern-based missing value dtypes using the custom `numpy` dtype API defined by the following NEPs:
 
